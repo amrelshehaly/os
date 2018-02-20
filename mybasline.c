@@ -52,15 +52,27 @@ int rval ;
    struct dirent **namelist;
     int n;
 
+    int i = 1;
+    int f = 0;
+
    n = scandir(".", &namelist, NULL , alphasort);
     if (n < 0)
         perror("scandir");
     else {
-        while (n-->0) {
-            if(strcmp(namelist[n]->d_name, cwd) == 0){
-            printf("%s\n", namelist[n]->d_name);
+        while(f == 0){
+            n = scandir(".", &namelist, NULL , alphasort);
+             while (n-->0) {
+                if(strcmp(namelist[n]->d_name, cwd) == 0){
+                    //printf("%s\n", namelist[n]->d_name);
+                    f = 1;
+                }
+                free(namelist[n]);
             }
-            free(namelist[n]);
+            if(f == 1){
+
+            }else{
+               //sprintf(buf, )
+            }
         }
         free(namelist);
     }
