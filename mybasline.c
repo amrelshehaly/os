@@ -15,8 +15,8 @@ int rval ;
 
 //char exist [2] ={};
 
-    //char cwd [1024];
-    //scanf("%s",cwd);
+    char cwd [1024];
+    scanf("%s",cwd);
 
     /*if (getcwd(cwd, sizeof(cwd)) != NULL){
        printf( "Current working dir: %s\n", cwd);
@@ -52,15 +52,17 @@ int rval ;
    struct dirent **namelist;
     int n;
 
-   n = scandir(".", &namelist, "/home/amr/Music/amr", alphasort);
+   n = scandir(".", &namelist, NULL , alphasort);
     if (n < 0)
         perror("scandir");
     else {
-        while (n--) {
+        while (n-->0) {
+            if(strcmp(namelist[n]->d_name, cwd) == 0){
             printf("%s\n", namelist[n]->d_name);
-            //free(namelist[n]);
+            }
+            free(namelist[n]);
         }
-        //free(namelist);
+        free(namelist);
     }
 
     
