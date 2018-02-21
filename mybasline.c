@@ -17,6 +17,8 @@ int rval ;
 
     char cwd [1024];
     scanf("%s",cwd);
+    char dir[1024];
+    strcpy(dir, cwd);
 
     /*if (getcwd(cwd, sizeof(cwd)) != NULL){
        printf( "Current working dir: %s\n", cwd);
@@ -54,25 +56,31 @@ int rval ;
 
     int i = 1;
     int f = 0;
-
+    char buf[1024];
    n = scandir(".", &namelist, NULL , alphasort);
     if (n < 0)
         perror("scandir");
     else {
         while(f == 0){
             n = scandir(".", &namelist, NULL , alphasort);
+            f = 1;
              while (n-->0) {
-                if(strcmp(namelist[n]->d_name, cwd) == 0){
-                    //printf("%s\n", namelist[n]->d_name);
-                    f = 1;
+                if(strcmp(namelist[n]->d_name, dir) == 0){
+                    printf("%s\n", namelist[n]->d_name);
+                    f = 0;
                 }
                 free(namelist[n]);
             }
             if(f == 1){
-
+                mkdir(dir, 0777);
             }else{
-               //sprintf(buf, )
+                strcpy(dir, cwd);
+               sprintf(buf, "%d", i);
+               strcat(dir, buf);
             }
+            i++;
+            printf("%d", i);
+            printf("%s", dir);
         }
         free(namelist);
     }
